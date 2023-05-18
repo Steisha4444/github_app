@@ -32,6 +32,9 @@ class AppTheme {
   static ThemeData buildTheme(BuildContext context) {
     return ThemeData(
       scaffoldBackgroundColor: colors.primaryBackgroundColor,
+      appBarTheme: AppBarTheme(
+        backgroundColor: AppTheme.colors.primaryBackgroundColor,
+      ),
       textTheme: Theme.of(context)
           .textTheme
           .merge(GoogleFonts.ralewayTextTheme())
