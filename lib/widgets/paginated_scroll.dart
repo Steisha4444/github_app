@@ -42,7 +42,7 @@ class _PaginatedScrollState extends State<PaginatedScroll> {
 
     final position = _scroll.position;
 
-    if (position.pixels >= position.maxScrollExtent) {
+    if (position.pixels >= position.maxScrollExtent - 200) {
       EasyDebounce.debounce(
         widget.tag,
         widget.debounceDuration ?? const Duration(milliseconds: 500),

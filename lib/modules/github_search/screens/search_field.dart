@@ -4,7 +4,7 @@ import 'package:github_app/core/app_theme.dart';
 import 'package:github_app/modules/github_search/controllers/github_controller.dart';
 
 class SearchField extends StatefulWidget {
-  SearchField({
+  const SearchField({
     super.key,
   });
 
@@ -40,32 +40,39 @@ class _SearchFieldState extends State<SearchField> {
   }
 
   Future<void> search() async {
-    setState(() {
-      _isEnabled = false;
-    });
-    await controller.cacheSearch(textController.text);
-    controller.cleanSearch();
-    await controller.getRepos(textController.text);
-    setState(() {
-      _isEnabled = true;
-    });
+    if (textController.text.isNotEmpty) {
+      setState(() {
+        _isEnabled = false;
+      });
+
+      await controller.cacheSearch(textController.text);
+      controller.cleanSearch();
+      await controller.getRepos(textController.text);
+      setState(() {
+        _isEnabled = true;
+      });
+    }
   }
 
   Widget getSuffixIcon() {
-    return InkWell(
-      onTap: () {
-        textController.clear();
-        controller.cleanSearch();
-      },
-      child: Padding(
-        padding:
-            const EdgeInsets.only(left: 18, right: 14, top: 18, bottom: 20),
-        child: Image.asset(
-          _isEnabled ? 'assets/images/close.png' : 'assets/images/ban.png',
-          width: 25,
+    if (_isFocused) {
+      return InkWell(
+        onTap: () {
+          textController.clear();
+          controller.cleanSearch();
+        },
+        child: Padding(
+          padding:
+              const EdgeInsets.only(left: 18, right: 14, top: 18, bottom: 20),
+          child: Image.asset(
+            _isEnabled ? 'assets/images/close.png' : 'assets/images/ban.png',
+            width: 25,
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      return const SizedBox();
+    }
   }
 
   @override

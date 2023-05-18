@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:github_app/core/app_theme.dart';
-import 'package:github_app/widgets/favorite_list.dart';
+import 'package:github_app/modules/github_search/screens/favorite_list.dart';
+
 import 'package:github_app/widgets/nav_back_button.dart';
 
 class FavoriteReposScreen extends StatelessWidget {

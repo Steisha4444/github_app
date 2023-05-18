@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:github_app/core/app_theme.dart';
+import 'package:github_app/modules/github_search/controllers/github_controller.dart';
 import 'package:github_app/modules/github_search/screens/favorite_repos_screen.dart';
 
 class StarButton extends StatelessWidget {
-  StarButton({
+  const StarButton({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.to(() => const FavoriteReposScreen()),
+      onTap: () async {
+        final controller = Get.find<GitHubController>();
+        await controller.getFavoriteRepos();
+        Get.to(() => const FavoriteReposScreen());
+      },
       child: Container(
         alignment: Alignment.center,
         margin: const EdgeInsets.only(

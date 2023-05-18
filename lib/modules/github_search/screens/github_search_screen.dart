@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:github_app/core/app_theme.dart';
-import 'package:github_app/widgets/repo_list.dart';
-import 'package:github_app/widgets/search_list.dart';
+import 'package:github_app/modules/github_search/screens/repo_list.dart';
+import 'package:github_app/modules/github_search/screens/search_field.dart';
+import 'package:github_app/modules/github_search/screens/search_list.dart';
 import 'package:github_app/widgets/star_button.dart';
-import 'package:github_app/widgets/search_field.dart';
 import 'package:github_app/modules/github_search/controllers/github_controller.dart';
 
 class GitHubScreen extends StatelessWidget {
@@ -52,7 +52,7 @@ class GitHubScreen extends StatelessWidget {
               fontSize: 16,
             ),
           ),
-          actions: [
+          actions: const [
             Center(
               child: StarButton(),
             ),
@@ -63,9 +63,9 @@ class GitHubScreen extends StatelessWidget {
         builder: (value) {
           return Column(
             children: [
-              SearchField(),
+              const SearchField(),
               Expanded(
-                child: getList(value.showSearchHistory.isTrue),
+                child: getList(value.showSearchHistory),
               ),
             ],
           );
