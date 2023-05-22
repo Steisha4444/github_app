@@ -45,6 +45,7 @@ class GitHubController extends GetxController {
     if (repos != null) {
       showSearchHistory = true;
       repos = null;
+      update();
     }
   }
 
@@ -84,10 +85,13 @@ class GitHubController extends GetxController {
 
   Future<void> removeFavoriteRepo(Repo repo) async {
     await _firebaseRepository.deleteFavoriteRepo(repo);
-    int repoIndex = repos!.indexOf(repo);
-    if (repoIndex != -1) {
-      repos![repoIndex].isFavorite = false;
-      update();
+
+    if (repos != null) {
+      int repoIndex = repos!.indexOf(repo);
+      if (repoIndex != -1) {
+        repos![repoIndex].isFavorite = false;
+        update();
+      }
     }
     getFavoriteRepos();
 

@@ -51,6 +51,8 @@ class _SearchFieldState extends State<SearchField> {
       setState(() {
         _isEnabled = true;
       });
+    } else {
+      controller.cleanSearch();
     }
   }
 
