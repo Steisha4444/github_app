@@ -76,25 +76,20 @@ class GitHubController extends GetxController {
 
   Future<void> toggleFavoriteRepo(Repo repo, int index) async {
     if (repo.isFavorite) {
-      await updateFavoriteRepo(repo, index);
+      await removeFavoriteRepo(repo);
     } else {
       await addFavoriteRepo(repo, index);
     }
   }
 
   Future<void> removeFavoriteRepo(Repo repo) async {
-    // if we remove favorite repo from favorite repos list
     await _firebaseRepository.deleteFavoriteRepo(repo);
-
+    int repoIndex = repos!.indexOf(repo);
+    if (repoIndex != -1) {
+      repos![repoIndex].isFavorite = false;
+      update();
+    }
     getFavoriteRepos();
-
-    update();
-  }
-
-  Future<void> updateFavoriteRepo(Repo repo, int index) async {
-    await _firebaseRepository.deleteFavoriteRepo(repo);
-
-    repos![index].isFavorite = false;
 
     update();
   }
